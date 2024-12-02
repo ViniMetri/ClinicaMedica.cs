@@ -133,12 +133,13 @@ namespace Clinica_Medica
 
                     while (true)
                     {
-                        Console.WriteLine("O que você deseja Editar");
+                        
                         Console.WriteLine("--------------------------");
                         Console.WriteLine("Opção 1 - Médico");
                         Console.WriteLine("Opção 2 - Paciente");
                         Console.WriteLine("Opção 3 - Sair");
                         Console.WriteLine("--------------------------");
+                        Console.WriteLine("O que você deseja Editar");
 
                         string opcEdit = Console.ReadLine();
                         if (opcEdit == "1")
@@ -172,7 +173,7 @@ namespace Clinica_Medica
                 {
                     while (true)
                     {
-                        Console.WriteLine("O que você quer Excluir");
+                        
                         Console.WriteLine("-------------------------");
                         Console.WriteLine("Opção 1 - Paciente");
                         Console.WriteLine("Opção 2 - Médico");
@@ -180,6 +181,7 @@ namespace Clinica_Medica
                         Console.WriteLine("Opção 4 - Usuario");
                         Console.WriteLine("Opção 5 - Sair");
                         Console.WriteLine("-------------------------");
+                        Console.WriteLine("O que você quer Excluir");
                         string opcExc = Console.ReadLine();
 
                         if (opcExc == "1")

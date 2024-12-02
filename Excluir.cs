@@ -90,7 +90,7 @@ namespace Clinica_Medica
                     if (verificador > 0)
                     {
                         Console.Clear();
-                        Console.WriteLine("Paciente excluido");
+                        Console.WriteLine("Consulta excluida");
 
                     }
                     else

@@ -37,19 +37,20 @@ namespace Clinica_Medica
 
                     if (verificaddor2 > 0)
                     {
-                        Console.WriteLine("Cadastrado com sucesso");
+                        Console.WriteLine("\n Cadastrado com sucesso");
                     }
                     else
                     {
                         Console.WriteLine("ERRO ao cadastrar usuario, tente novamente");
                     }
                 }
+                conn.Close();
             }
         }
         public static void CadastrarEspecialidade()
         {   
             Console.Clear();
-            Console.WriteLine("Qual a especialidade do medico: ");
+            Console.WriteLine("Qual especialidade você quer cadastrar: ");
             string especialidade = Console.ReadLine();
 
             using (NpgsqlConnection conn = Banco_de_dados.GetConnection())
@@ -66,13 +67,13 @@ namespace Clinica_Medica
                     NpgsqlCommand cmd1 = new NpgsqlCommand(query, conn);
                     int inserir = cmd1.ExecuteNonQuery();
                     Console.WriteLine("Especialidade Cadastrada");
-                    Console.Clear();
                 }
                 else
                 {
                     Console.Clear();
                     Console.WriteLine("ERRO ao cadastrar especialidade, tente novamente");
                 }
+                conn.Close();
             }
         }
         public static void CadastrarMedico()
@@ -109,6 +110,7 @@ namespace Clinica_Medica
                     Console.Clear();
                     Console.WriteLine("ERRO ao Cadastrar Médico");
                 }
+                conn.Close();
             }
         }
 
@@ -124,11 +126,11 @@ namespace Clinica_Medica
             Console.WriteLine("Qual o telefone do paciente: ");
             string telefone = Console.ReadLine();
             Console.WriteLine("Qual é o endereço: ");
-            Console.WriteLine("Rua: ");
+            Console.Write("Rua: ");
             string rua = Console.ReadLine();
-            Console.WriteLine("Bairro: ");
+            Console.Write("Bairro: ");
             string bairro = Console.ReadLine();
-            Console.WriteLine("Cidade: ");
+            Console.Write("Cidade: ");
             string cidade = Console.ReadLine();
 
             using (NpgsqlConnection conn = Banco_de_dados.GetConnection())
@@ -154,6 +156,7 @@ namespace Clinica_Medica
                 {
                     Console.WriteLine("Paciente não encontrado");
                 }
+                conn.Close();
             }
         }
 
@@ -190,6 +193,8 @@ namespace Clinica_Medica
                 {
                     Console.WriteLine("ERRO ao cadastrar consulta");
                 }
+
+                conn.Close();
             }
 
         }

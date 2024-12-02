@@ -13,15 +13,17 @@ namespace Clinica_Medica
     {
         public bool BuscarLogin()
         {
-            try
+            using (NpgsqlConnection conn = Banco_de_dados.GetConnection())
             {
-                Console.Clear();
-                Console.WriteLine("Qual o seu Username: ");
-                string user = Console.ReadLine();
-                Console.WriteLine("Qual sua senha: ");
-                string password = LerSenha();
-                using (NpgsqlConnection conn = Banco_de_dados.GetConnection())
+
+                try
                 {
+                    Console.Clear();
+                    Console.WriteLine("Qual o seu Username: ");
+                    string user = Console.ReadLine();
+                    Console.WriteLine("Qual sua senha: ");
+                    string password = LerSenha();
+
                     string query1 = $@"SELECT id_usuario FROM usuarios
                                        WHERE usuario = '{user}' and senha = '{password}'";
                     NpgsqlCommand cmd = new NpgsqlCommand(query1, conn);
@@ -29,22 +31,25 @@ namespace Clinica_Medica
                     int verificador = cmd.ExecuteNonQuery();
                     using (var reader = cmd.ExecuteReader())
                     {
-                        reader.Read(); // Lê a primeira linha retornada
-                            // Lê o valor da coluna no índice 0 (ou seja, a primeira coluna)
-                            Int16 valorColunaTexto = reader.GetInt16(0);
-                            Console.Clear();
-                            Console.WriteLine("Usuario encontrado ");
-                            return false;
-                       
+                        reader.Read();
+                        Int16 valorColunaTexto = reader.GetInt16(0);
+                        Console.Clear();
+                        Console.WriteLine("Usuario encontrado ");
+                        return false;
 
                     }
+
                 }
-            }
-            catch(Exception e)
-            {
-                Console.Clear();
-                Console.WriteLine("Nenhuma usuario encontrado.");
-                return true;
+                catch (Exception e)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Nenhuma usuario encontrado.");
+                    return true;
+                }
+                finally
+                {
+                    conn.Close();
+                }
             }
         }
 
@@ -54,24 +59,24 @@ namespace Clinica_Medica
             string senha = string.Empty;
             while (true)
             {
-                var tecla = Console.ReadKey(true); // 'true' evita a exibição da tecla no console
+                var tecla = Console.ReadKey(true);
 
-                if (tecla.Key == ConsoleKey.Enter) // Finaliza a digitação ao pressionar Enter
+                if (tecla.Key == ConsoleKey.Enter)
                     break;
 
-                if (tecla.Key == ConsoleKey.Backspace && senha.Length > 0) // Permite apagar
+                if (tecla.Key == ConsoleKey.Backspace && senha.Length > 0)
                 {
                     senha = senha.Substring(0, senha.Length - 1);
-                    Console.Write("\b \b"); // Apaga o último caractere exibido
+                    Console.Write("\b \b");
                 }
                 else
                 {
                     senha += tecla.KeyChar;
-                    Console.Write("*"); // Exibe o asterisco
+                    Console.Write("*");
                 }
             }
 
             return senha;
-        }
+         }
     }
 }
